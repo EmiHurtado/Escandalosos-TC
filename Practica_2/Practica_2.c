@@ -24,6 +24,12 @@ void inversoCadenas(char*, char*);
 void prefijossufijosCadenas(char*, char*);
 void subcadenasCadenas(char*, char*);
 void buscarSubcadenas(char*, char*);
+void longitudCadenas(char*, char*);
+void igualdadCadenas(char*, char*);
+void palindromo(char*, char*);
+void reemplazoCadenas(char*, char*);
+void quitarEspacios(char*, char*);
+void complemento1(char*, char*);
 
 //////////////////////////////// DEFINICIÓN DE CONSTANTES ///////////////////////////////////
 #define TAM 50
@@ -71,7 +77,7 @@ Salida: int bandera
 int verificacionCadenas(char* cadena){
 	int i;
 	for(i=0 ; cadena[i] != '\0' ; i++){
-		if(cadena[i] != '1' && cadena[i] != '0'){
+		if(cadena[i] != '1' && cadena[i] != '0' && cadena[i] != ' '){
 			printf("\nCadena rechazada. Ingrese solo una cadena con unos y ceros.\n\n");
 			system("pause");
 			system("cls");
@@ -97,7 +103,13 @@ void menuOpciones(char* cadena, char* cadena2){
 		printf("4.- Prefijos y sufijos.\n");
 		printf("5.- Subcadenas.\n");
 		printf("6.- Buscar subcadena.\n");
-		printf("7.- Salir.\n");
+		printf("7.- Longitud de cadenas.\n");
+		printf("8.- Igualdad de cadenas.\n");
+		printf("9.- Palindromo.\n");
+		printf("10.- Reemplazo de cadenas.\n");
+		printf("11.- Quitar espacios en blanco.\n");
+		printf("12.- Complemento a 1.\n");
+		printf("13.- Salir.\n");
 		scanf("%i", &p);
 		switch(p){
 			case 1: concatenacionCadenas(cadena, cadena2);
@@ -112,7 +124,19 @@ void menuOpciones(char* cadena, char* cadena2){
 					break;
 			case 6: buscarSubcadenas(cadena, cadena2);
 					break;
-			case 7: printf("\nGracias por preferirnos. Hasta la proxima.\n\n");
+			case 7: longitudCadenas(cadena, cadena2);
+					break;
+			case 8: igualdadCadenas(cadena, cadena2);
+					break;
+			case 9: palindromo(cadena, cadena2);
+					break;
+			case 10: reemplazoCadenas(cadena, cadena2);
+					break;
+			case 11: quitarEspacios(cadena, cadena2);
+					break;
+			case 12: complemento1(cadena, cadena2);
+					break;
+			case 13: printf("\nGracias por preferirnos. Hasta la proxima.\n\n");
 					system("pause");
 					break;
 			default: printf("\nNo logro entender. Intente de nuevo.\n\n");
@@ -121,7 +145,7 @@ void menuOpciones(char* cadena, char* cadena2){
 					break;
 		}
 		system("cls");
-	}while(p != 7);
+	}while(p != 13);
 }
 
 /*
@@ -282,6 +306,87 @@ void buscarSubcadenas(char* cadena, char* cadena2){
 		printf("La subcadena %s se encuentra dentro de la cadena %s.\n\n", aux, cadena);
 	else
 		printf("La subcadena %s no se encuentra dentro de la cadena %s.\n\n", aux, cadena);
+	system("pause");
+	system("cls");
+}
+
+/*
+Función: longitudCadenas
+Descripción: Regresa el número de símbolos que tiene la cadena.
+Entrada: Apuntadores a cadena 1 y 2.
+Salida: Impresión de resultados.
+*/
+void longitudCadenas(char* cadena, char* cadena2){
+	int n1, n2;
+	system("cls");
+	printf("\nLongitud de las cadenas.\n");
+	printf("\nLongitud de la cadena %s: %i\n", cadena, strlen(cadena));
+	printf("\nLongitud de la cadena %s: %i\n\n", cadena2, strlen(cadena2));
+	system("pause");
+	system("cls");
+}
+
+/*
+Función: igualdadCadenas
+Descripción: Encuentra una subcadena dada en la cadena.
+Entrada: Apuntadores a cadena 1 y 2.
+Salida: Impresión de resultados.
+*/
+void igualdadCadenas(char* cadena, char* cadena2){
+	system("cls");
+
+	system("pause");
+	system("cls");
+}
+
+/*
+Función: palindromo
+Descripción: Encuentra una subcadena dada en la cadena.
+Entrada: Apuntadores a cadena 1 y 2.
+Salida: Impresión de resultados.
+*/
+void palindromo(char* cadena, char* cadena2){
+	system("cls");
+
+	system("pause");
+	system("cls");
+}
+
+/*
+Función: reemplazoCadenas
+Descripción: Encuentra una subcadena dada en la cadena.
+Entrada: Apuntadores a cadena 1 y 2.
+Salida: Impresión de resultados.
+*/
+void reemplazoCadenas(char* cadena, char* cadena2){
+	system("cls");
+
+	system("pause");
+	system("cls");
+}
+
+/*
+Función: quitarEspacios
+Descripción: Encuentra una subcadena dada en la cadena.
+Entrada: Apuntadores a cadena 1 y 2.
+Salida: Impresión de resultados.
+*/
+void quitarEspacios(char* cadena, char* cadena2){
+	system("cls");
+
+	system("pause");
+	system("cls");
+}
+
+/*
+Función: complemento1
+Descripción: Encuentra una subcadena dada en la cadena.
+Entrada: Apuntadores a cadena 1 y 2.
+Salida: Impresión de resultados.
+*/
+void complemento1(char* cadena, char* cadena2){
+	system("cls");
+
 	system("pause");
 	system("cls");
 }
