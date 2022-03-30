@@ -5,7 +5,7 @@ void complemento(char[]);
 
 int main(int argc, char const *argv[])
 {
-	complemento("10001");
+	complemento("100                  01");
 	espacios("10  00  1");
     return 0;
 }
@@ -18,7 +18,7 @@ void complemento(char* cadena){
 
     for(i = 0;i<size; i++){
         if(cadena[i] == '1') complemento[i] = '0';
-        else complemento[i] = '1';
+        else if(cadena[i] == '0') complemento[i] = '1';
         printf("%c", complemento[i]);
     }
     printf("\n");
