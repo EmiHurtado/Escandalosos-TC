@@ -5,7 +5,7 @@ Autores: Hurtado Morales Emiliano
 Espinoza León Jaqueline Viridiana
 García Zacarías Angel Emmanuel
 Fecha de creación: 08/03/22
-Versión: 2.0
+Versión: 4.0
 */
 
 //////////////////////////////////////// LIBRERÍAS //////////////////////////////////////////
@@ -409,7 +409,50 @@ Entrada: Apuntadores a cadena 1 y 2.
 Salida: Impresión de resultados.
 */
 void palindromo(char* cadena, char* cadena2){
+	int i, j, k, n, n2, bandera=0, bandera2=0;
+	char aux[TAM], aux2[TAM];
 	system("cls");
+
+	n = strlen(cadena);
+	j=0;
+	for(i=n-1 ; i>=0 ; i--, j++){
+		aux[j] = cadena[i];
+	}
+	aux[n] = '\0';
+
+	n2 = strlen(cadena2);
+	j=0;
+	for(i=n2-1 ; i>=0 ; i--, j++){
+		aux2[j] = cadena2[i];
+	}
+	aux2[n2] = '\0';
+
+	printf("\nPalindromo.\n\n");
+	printf("\nCadena 1: %s\n", cadena);
+	printf("\nCadena 2: %s\n\n\n", cadena2);
+
+
+	for(k=0 ; k<n ; k++){
+		if(cadena[k] != aux[k]){
+			bandera=1;
+		}
+	}
+	
+	if(bandera == 1)
+		printf("La cadena 1 NO es palindromo.\n\n");
+	else
+		printf("La cadena 1 SI es palindromo.\n\n");
+
+	for(k=0 ; k<n2 ; k++){
+		if(cadena2[k] != aux2[k]){
+			bandera2=1;
+		}
+	}
+	
+	if(bandera2 == 1)
+		printf("La cadena 2 NO es palindromo.\n\n");
+	else
+		printf("La cadena 2 SI es palindromo.\n\n");
 
 	system("pause");
 	system("cls");
@@ -423,8 +466,18 @@ Salida: Impresión de resultados.
 */
 void reemplazoCadenas(char* cadena, char* cadena2){
 	system("cls");
-
-	system("pause");
+	
+	printf("\nReemplazo de cadenas.\n\n");
+	printf("\nCadena 1.\n");
+	getchar();
+	
+	entradaCadenas(cadena);
+	cadena[strlen(cadena)] = '\0';
+	
+	printf("\nCadena 2.\n");
+	entradaCadenas(cadena2);
+	cadena2[strlen(cadena2)] = '\0';
+	
 	system("cls");
 }
 
