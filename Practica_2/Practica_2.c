@@ -377,7 +377,7 @@ void longitudCadenas(char* cadena, char* cadena2){
 
 /*
 Función: igualdadCadenas
-Descripción: Encuentra una subcadena dada en la cadena.
+Descripción: Revisa si las dos cadenas dadas son iguales.
 Entrada: Apuntadores a cadena 1 y 2.
 Salida: Impresión de resultados.
 */
@@ -404,7 +404,7 @@ void igualdadCadenas(char* cadena, char* cadena2){
 
 /*
 Función: palindromo
-Descripción: Encuentra una subcadena dada en la cadena.
+Descripción: Revisa que las cadenas sean palíndromos.
 Entrada: Apuntadores a cadena 1 y 2.
 Salida: Impresión de resultados.
 */
@@ -417,7 +417,7 @@ void palindromo(char* cadena, char* cadena2){
 
 /*
 Función: reemplazoCadenas
-Descripción: Encuentra una subcadena dada en la cadena.
+Descripción: Reemplaza las cadenas originales, por las nuevas otorgadas en la función.
 Entrada: Apuntadores a cadena 1 y 2.
 Salida: Impresión de resultados.
 */
@@ -430,7 +430,7 @@ void reemplazoCadenas(char* cadena, char* cadena2){
 
 /*
 Función: quitarEspacios
-Descripción: Encuentra una subcadena dada en la cadena.
+Descripción: Quita los espacios existentes en las cadenas.
 Entrada: Apuntadores a cadena 1 y 2.
 Salida: Impresión de resultados.
 */
@@ -477,7 +477,7 @@ void quitarEspacios(char* cadena, char* cadena2){
 
 /*
 Función: complemento1
-Descripción: Encuentra una subcadena dada en la cadena.
+Descripción: Provee el complemnto a 1 de las cadenas dadas.
 Entrada: Apuntadores a cadena 1 y 2.
 Salida: Impresión de resultados.
 */
