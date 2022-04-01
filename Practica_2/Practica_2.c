@@ -236,7 +236,7 @@ void inversoCadenas(char* cadena, char* cadena2){
 	for(i=n2-1 ; i>=0 ; i--, j++){
 		aux2[j] = cadena2[i];
 	}
-	aux2[n] = '\0';
+	aux2[n2] = '\0';
 	printf("\nInverso.\n");
 	printf("\nCadena 1: %s\n", cadena);
 	printf("\nCadena invertida: %s\n\n", aux);
