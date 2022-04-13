@@ -1,8 +1,9 @@
 /*
-NOMBRE DE PROGRAMA: Algoritmo de Huffman - Codificacion
-DESCRIPCIÓN: Partiendo de cualquier tipo de archivo, se lee de forma binaria y se guarda cada byte en un arreglo del tamaño del archivo. 
-Posteriormente, se hace un análisis del arreglo, para obtener una lista ordenada. De esta forma, se consigue la frecuencia de cada byte
-y se presenta sólo la información de los carácteres necesarios.
+NOMBRE DE PROGRAMA: Análisis léxico
+DESCRIPCIÓN: Partiendo de cualquier tipo de archivo, se lee de forma binaria y se guarda cada byte
+en un arreglo del tamaño del archivo. Posteriormente, se hace un análisis del arreglo, para obtener
+una lista ordenada. De esta forma, se consigue la frecuencia de cada byte y se presenta sólo la 
+información de los carácteres necesarios.
 FECHA: abril 2022
 VERSIÓN: 2.0
 AUTOR(ES): 
@@ -28,8 +29,9 @@ AUTOR(ES):
 //********************************************************************************
 
 /*Descripción de estructura: huf
-Esctructura que simula un nodo, ya sea para la cola o el árbol.
-Cada nodo, posee el byte deseado y las veces que se repite dentro del archivo original. Asimismo, tiene los apuntadores siguiente y anterior para crear la lista; y uno y cero para crear el árbol.
+Esctructura que simula un nodo.
+Cada nodo, posee el byte deseado y las veces que se repite dentro del archivo original. Asimismo, 
+tiene los apuntadores siguiente y anterior para crear la lista.
 */
 
 typedef struct nodo{
@@ -63,7 +65,8 @@ void frecuenciaDatos(FILE*, list*, struct stat);
 //*****************************************************************
 
 /*Descripcion de la función:
-Funcion main, se ingresa el archivo a analizar y realiza todas las llamadas a funciones que permiten su análisis léxico. 
+Funcion main, se ingresa el archivo a analizar y realiza todas las llamadas a funciones que permiten 
+su análisis léxico. 
 Input: Archivo de entrada.
 Output: Ninguno.
 */
@@ -122,7 +125,8 @@ int main(int argc, char *argv[]) {
 
 /*Descripción de función:
 Funcion entradaDatos, permite la inserción de cada byte del archivo en el arreglo previamente creado.
-Input: Puntero al archivo, puntero al arreglo y struct stat sb, que habilita saber de que tamaño es el archivo.
+Input: Puntero al archivo, puntero al arreglo y struct stat sb, que habilita saber de que tamaño es 
+el archivo.
 Output: Arreglo llenado completamente.
 Observaciones: La inserción es muy rápida y no conlleva
 mucho tiempo de procesamiento.
@@ -155,9 +159,11 @@ void entradaDatos(char *nombreArchivo, char *arreglo, struct stat sb){
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 /*Descripción de función:
-Funcion creacionLista, se realiza todo el análisis necesario para poder crear una lista ordenada, al observar que no 
-se repitan caracteres dentro de ella y que se sepa cuantas veces aparece cada byte en el archivo.
-Input: Puntero al struct lista, puntero al arreglo y struct stat sb, que habilita saber de que tamaño es el archivo.
+Funcion creacionLista, se realiza todo el análisis necesario para poder crear una lista ordenada, 
+al observar que no se repitan caracteres dentro de ella y que se sepa cuantas veces aparece cada 
+byte en el archivo.
+Input: Puntero al struct lista, puntero al arreglo y struct stat sb, que habilita saber de que 
+tamaño es el archivo.
 Output: Lista creada y ordenada.
 */
 
@@ -211,14 +217,16 @@ void creacionLista(list *lista, char *arreglo, struct stat sb){
 					//creando nodo  lista -> fin 
 					if(actual -> f >= lista -> inicio -> f){
 						//nodo actual sera nuestro  lista -> fin 
-						//si la actual -> f es mas pequeÃ±a que el lista -> inicio  lo manda a la derecha
+						//si la actual -> f es mas pequeÃ±a que el lista -> inicio  lo manda a la 
+						//derecha
 						actual-> siguiente = NULL;
 						actual-> anterior = lista -> inicio ;
 						lista -> inicio -> siguiente = actual;
 						 lista -> fin = actual;
 					}
 					else{
-						//nodo auxlilar sera el lista -> inicio  y nuestro anterior erior lista -> inicio  el  lista -> fin 
+						//nodo auxlilar sera el lista -> inicio  y nuestro anterior erior lista -> 
+						//inicio  el  lista -> fin 
 						actual-> siguiente = lista -> inicio ;
 						actual-> anterior = NULL;
 						lista -> inicio -> anterior = actual;
@@ -229,7 +237,8 @@ void creacionLista(list *lista, char *arreglo, struct stat sb){
 				else{
 					if(actual -> f >=  lista -> fin -> f){
 						//nodo actual al  lista -> fin  de la lista
-						//si la actual -> f es mas pequeña que el lista -> inicio  lo manda a la derecha
+						//si la actual -> f es mas pequeña que el lista -> inicio  lo manda a la 
+						//derecha
 						actual -> siguiente = NULL;
 						actual -> anterior = lista -> fin ;
 						 lista -> fin -> siguiente = actual;
@@ -275,7 +284,8 @@ void creacionLista(list *lista, char *arreglo, struct stat sb){
 
 /*Descripción de función:
 Funcion frecuenciaDatos, Imprime los caracteres requeridos, su frecuencia y el número de pares.
-Input: Puntero al archivo, puntero a la lista y struct stat sb, que habilita saber de que tamaño es el archivo.
+Input: Puntero al archivo, puntero a la lista y struct stat sb, que habilita saber de que tamaño 
+es el archivo.
 Output: Impresión de información.
 */
 
