@@ -36,23 +36,16 @@ Cada nodo, posee el byte deseado y las veces que se repite dentro del archivo or
 tiene los apuntadores siguiente y anterior para crear la lista.
 */
 
-typedef struct nodo{
-	char car;
-	int f;
-	// Apuntadores para la lista
-	struct nodo *siguiente;
-	struct nodo *anterior;
-}huf;
-
-/*Descripción de estructura: ListaDoble
-Estructura que tiene los apuntadores al principio y fin de la cola.
-*/
-
-typedef struct ListaDoble{
-	huf *inicio;
-	huf *fin;
-	int tam;
-}list;
+typedef struct {
+    int pos;
+    int modo; 
+    /*
+        Modos:
+            -1 -> identificador incorrecto que no cumple con lo establecido
+            0 -> varios identificadores para el mismo tipo de variable
+            1 -> un solo identificador para ese tipo de variable
+    */
+} Elem;
 
 //*****************************************************************
 //DECLARACIÓN DE FUNCIONES

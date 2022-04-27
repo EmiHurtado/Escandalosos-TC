@@ -23,8 +23,13 @@ void cantidadVar(char *, char *, int, int);
 int main(int argc, char const *argv[])
 {
     char *arreglo;
+    struct stat sb;
     arreglo[0] = ' ';
     strcat(arreglo,"int abcd = 0, ab, a; abcd = ab; ab = 0;");
+    sb.st_size = strlen(arreglo);
+    printf("%i", sb.st_size);
+    //encontrarTipo(arreglo, sb);
+    //char arreglo = "int abcd = 0, ab, a; abcd = ab; ab = 0;"
     return 0;
 }
 
