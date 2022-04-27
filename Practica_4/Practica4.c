@@ -190,16 +190,45 @@ void analisisLexico(char *arreglo, struct stat sb){
 			frecuencias[4]++;
 		else if(arreglo[i] == '}')
 			frecuencias[5]++;
+		// Agregados de operadores aritméticos
+		else if(arreglo[i] == '<' && arreglo[i+1] == '=')
+			frecuencias[20]++;
+		else if(arreglo[i] == '>' && arreglo[i+1] == '=')
+			frecuencias[21]++;
+		/////////////////////////////////////////////////
 		else if(arreglo[i] == '<')
 			frecuencias[6]++;
 		else if(arreglo[i] == '>')
 			frecuencias[7]++;
+		// Operadores lógicos: &&, ||, ! (3)
 		else if(arreglo[i] == '&' && arreglo[i+1] == '&')
 			frecuencias[8]++;
 		else if(arreglo[i] == '|' && arreglo[i+1] == '|')
 			frecuencias[9]++;
+		else if(arreglo[i] == '!')
+			frecuencias[10]++;
+		// Operadores aritméticos: (11)
+		else if(arreglo[i] == '+' && arreglo[i+1] == '+')
+			frecuencias[11]++;
+		else if(arreglo[i] == '+')
+			frecuencias[12]++;
+		else if(arreglo[i] == '-' && arreglo[i+1] == '-')
+			frecuencias[13]++;
+		else if(arreglo[i] == '-')
+			frecuencias[14]++;
+		else if(arreglo[i] == '*')
+			frecuencias[15]++;
+		else if(arreglo[i] == '/')
+			frecuencias[16]++;
+		else if(arreglo[i] == '%')
+			frecuencias[17]++;
+		else if(arreglo[i] == '=' && arreglo[i+1] == '=')
+			frecuencias[18]++;
+		else if(arreglo[i] == '=')
+			frecuencias[19]++;
 	}
 	printf("\nFrecuencia de cada caracter. \n\n");
+	printf("Caracteres. \n");
 	printf("El caracter ( se repite %i veces \n", frecuencias[0]);
 	printf("El caracter ) se repite %i veces \n", frecuencias[1]);
 	printf("El caracter [ se repite %i veces \n", frecuencias[2]);
@@ -208,9 +237,23 @@ void analisisLexico(char *arreglo, struct stat sb){
 	printf("El caracter } se repite %i veces \n", frecuencias[5]);
 	printf("El caracter < se repite %i veces \n", frecuencias[6]);
 	printf("El caracter > se repite %i veces \n", frecuencias[7]);
+	printf("\nOperadores logicos. \n");
 	printf("El operador && se repite %i veces \n", frecuencias[8]);
 	printf("El operador || se repite %i veces \n", frecuencias[9]);
-	printf("\n\nFrecuencia de cada par. \n\n");
+	printf("El operador ! se repite %i veces \n", frecuencias[10]);
+	printf("\nOperadores aritmeticos. \n");
+	printf("El operador ++ se repite %i veces \n", frecuencias[11]);
+	printf("El operador + se repite %i veces \n", frecuencias[12]);
+	printf("El operador -- se repite %i veces \n", frecuencias[13]);
+	printf("El operador - se repite %i veces \n", frecuencias[14]);
+	printf("El operador * se repite %i veces \n", frecuencias[15]);
+	printf("El operador / se repite %i veces \n", frecuencias[16]);
+	printf("El operador %c se repite %i veces \n", 37, frecuencias[17]);
+	printf("El operador == se repite %i veces \n", frecuencias[18]);
+	printf("El operador = se repite %i veces \n", frecuencias[19]);
+	printf("El operador <= se repite %i veces \n", frecuencias[20]);
+	printf("El operador >= se repite %i veces \n", frecuencias[21]);
+	printf("\n\n\nFrecuencia de cada par. \n\n");
 	printf("El par de caracteres () aparece %i\n", frecuencias[0] < frecuencias[1] ? frecuencias[0] : frecuencias[1]);
 	printf("El par de caracteres {} aparece %i\n", frecuencias[2] < frecuencias[3] ? frecuencias[2] : frecuencias[3]);
 	printf("El par de caracteres [] aparece %i\n", frecuencias[4] < frecuencias[5] ? frecuencias[4] : frecuencias[5]);
