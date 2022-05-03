@@ -23,29 +23,13 @@ AUTOR(ES):
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include "cola.h"
 
 #define TAM 100
 
 //********************************************************************************
 //DECLARACION DE ESTRUCTURAS
-//********************************************************************************
-
-/*Descripción de estructura: huf
-Esctructura que simula un nodo.
-Cada nodo, posee el byte deseado y las veces que se repite dentro del archivo original. Asimismo, 
-tiene los apuntadores siguiente y anterior para crear la lista.
-*/
-
-typedef struct {
-    int pos;
-    int modo; 
-    /*
-        Modos:
-            -1 -> identificador incorrecto que no cumple con lo establecido
-            0 -> varios identificadores para el mismo tipo de variable
-            1 -> un solo identificador para ese tipo de variable
-    */
-} Elem;
+//*******************************************************************************
 
 //*****************************************************************
 //DECLARACIÓN DE FUNCIONES
@@ -53,6 +37,9 @@ typedef struct {
 
 void entradaDatos(char*, char*, struct stat);
 void analisisLexico(char*, struct stat);
+void encontrarTipo(char*, struct stat);
+int validar(char*, struct stat, int);
+void contarIden(char*, char*, struct stat, int);
 
 //*****************************************************************
 //PROGRAMA PRINCIPAL 
@@ -72,12 +59,16 @@ int main(int argc, char *argv[]) {
 	//******************************************************************	
 	
 	FILE *archivo;
-	char *nombreArchivo = argv[1];
+	char *nombreArchivo;
 	char *arreglo;
 	int *numC;
-	int alt, i, k;
-	list *lista;
-	float tamor, tamcom;
+	int alt;
+	int i;
+	int k;
+	float tamor;
+	float tamcom;
+
+	nombreArchivo = argv[1];
 	
 	//******************************************************************	
 	//Algoritmo
@@ -94,17 +85,13 @@ int main(int argc, char *argv[]) {
 	// Se crea el arreglo dinámico
 	arreglo = malloc(sizeof(char)*sb.st_size); 
 	
-	// Inicializa memoria lista
-	lista = (list *)malloc(sizeof(list));
-	
-	// Inicializa estructura
-	lista -> inicio = NULL;
-	lista -> fin = NULL;
-	lista -> tam = 0;
-	
 	entradaDatos(nombreArchivo, arreglo, sb);
 	
 	analisisLexico(arreglo, sb);
+
+	printf("\n\n\n");
+
+	encontrarTipo(arreglo,sb);	
 	
 	return EXIT_SUCCESS;
 }
@@ -128,8 +115,10 @@ void entradaDatos(char *nombreArchivo, char *arreglo, struct stat sb){
 	char bufer[1];
 	FILE *archivo;
 	size_t bytesLeidos;
-	int i=0;
-	
+	int i;
+
+	i = 0;
+
 	archivo = fopen(nombreArchivo, "rb"); // Abrir en modo read binario
 	// Si es NULL, entonces no existe, o no se pudo abrir
 	if (!archivo) {
@@ -251,4 +240,119 @@ void analisisLexico(char *arreglo, struct stat sb){
 	printf("El par de caracteres {} aparece %i\n", frecuencias[2] < frecuencias[3] ? frecuencias[2] : frecuencias[3]);
 	printf("El par de caracteres [] aparece %i\n", frecuencias[4] < frecuencias[5] ? frecuencias[4] : frecuencias[5]);
 	printf("El par de caracteres <> aparece %i\n", frecuencias[6] < frecuencias[7] ? frecuencias[6] : frecuencias[7]);
+}
+
+void contarIden(char *arreglo, char *identificador, struct stat sb, int pos){
+	// variables
+	int i;
+	int cont;
+	int lon;
+
+	lon = 0;
+	cont = 1;
+
+	// recorrido
+	for(i = pos; i<sb.st_size;i++){
+		//recorremos
+		if(lon == strlen(identificador)){ // Son iguales por su longitud
+		    if(arreglo[i+1] == '	' || arreglo[i+1] == ' ' || arreglo[i+1] == '\n' || arreglo[i+1] == '=' || arreglo[i+1] == '>' || arreglo[i+1] == '<' || arreglo[i+1] == '*' || arreglo[i+1] == '+' || arreglo[i+1] == '-'|| arreglo[i+1] == '['|| arreglo[i+1] == ')'|| arreglo[i+1] == ';'|| arreglo[i+1] == ',') // revisamos el siguiente valor
+		        cont++;
+		    else lon = 0; //reseteamos la longitud de la palabra
+		} else{
+		    if(identificador[lon] == arreglo[i]){ // Si son iguales, su tamaño coincide
+		        lon++;
+		    } else lon = 0;
+		}
+	}
+
+	printf("%s se repite %d veces\n",identificador,cont);
+}
+
+int validar(char *arreglo, struct stat sb, int pos){
+	// Variables
+	int i;
+	char identificador[100];
+	int size;
+
+	identificador[0] = '\0';                           
+	size = 0; 
+	//Continuamos recorrido
+	for(i = pos; i<sb.st_size;i++){
+		if(arreglo[i] >= 97 && arreglo[i] <= 122 && identificador[0] == '\0'){	 //Inicia con minuscula
+			identificador[0] = arreglo[i];
+			size++;
+		} else if(arreglo[i] == '_' && (arreglo[i+1] >= 97 && arreglo[i+1] <= 122) && identificador[0] == '\0'){ // Inicia con '_' y deepués una minuscula
+			identificador[0] = arreglo[i];
+			size++;
+		} else if(identificador[0] != '\0' && ((arreglo[i] >= 48 && arreglo[i] <= 57) || (arreglo[i] >= 65 && arreglo[i] <= 90) || (arreglo[i] >= 97 && arreglo[i] <= 122) || arreglo[i] == '_')){
+			identificador[size] = arreglo[i]; // Se agrega a la cadena
+			size++;
+		}else if(arreglo[i] == '(' ||arreglo[i] == ')' || arreglo[i] == ']' ||arreglo[i] == ',' ){ // Estos valores resetean todo
+			return pos;
+		} else if(identificador[0] != '\0' && (arreglo[i] == ' ' || arreglo[i] == '	' || arreglo[i] == '\n' || arreglo[i] == ';'|| arreglo[i] == ',' || arreglo[i] == '[' )){ //Posible valores que acompañan una variable
+			identificador[size] = '\0';
+			contarIden(arreglo, identificador, sb, i); // Se cuentan identificadores
+			return i;
+		} else if(identificador[0] == '\0' && !(arreglo[i] == '	' || arreglo[i] == ' ' || arreglo[i] == '\n' || arreglo[i] == '*' )){ //Cualquier valor no mencionado al inicio genera un error
+			return pos;
+		}
+	}
+
+	return 0;
+}
+
+void encontrarTipo(char *arreglo, struct stat sb){
+	//Variables
+	int i;
+	int band;
+	int bandTip;
+	int j;
+	int tams[14] = {5,14,12,6,15,13,4,13,11,5,14,12,6,7};
+	char tipos[14][15] = {{"char\0"},{"unsigned char\0"},{"signed char\0"},{"short\0"},{"unsigned short\0"},
+                {"signed short\0"},{"int\0"},{"unsigned int\0"},{"signed int\0"},{"long\0"},{"unsigned long\0"},
+                {"signed long\0"},{"float\0"},{"double\0"}};
+	Cola queue;
+
+	band = 0;
+	bandTip = 0;
+	queue = nueva();
+
+	//Análisis
+	for(i = 0 ; i < sb.st_size ; i++){
+
+		if(band == 1 || !esnueva(queue)){ //Revisamos que band == 1 y que la cola no este vacia
+			if(arreglo[i] >= 97 && arreglo[i] <= 122){ // Solo minusculas
+				queue = formar(queue,arreglo[i]);
+			} else if(arreglo[i] != ' ' && arreglo[i] != '	' && arreglo[i] != '\n'){ //Cualquier caracter menos estos genera un error
+				while(!esnueva(queue))
+					queue = desformar(queue);
+			} else if(!esnueva(queue)){ // Se analiza si es vacia
+				if(comparar(queue,"unsigned\0",9,0) == 1 || comparar(queue,"signed\0",7,0) == 1){ // Puede ser signed o unsigned
+					queue = formar(queue,arreglo[i]);
+				} else{ // No es, por lo tanto continuamos
+					for(j = 0;j<14;j++){
+						if(comparar(queue,tipos[j],tams[j],0) == 1) { //Vemos si coindice, en caso de que si bandTip = 1;
+							bandTip = 1;
+							j = 14;
+						}
+					}
+
+					if(bandTip == 1){
+						i = validar(arreglo,sb,i+1); // Se retorna la posición final
+						band = 0; // Se resetean banderas
+						bandTip = 0;
+						while(!esnueva(queue)) // Se elimina la queue
+							queue = desformar(queue);
+					} else {
+						while(!esnueva(queue))
+							queue = desformar(queue);
+					}
+				}
+			}
+		}
+
+		if(arreglo[i] == ' '|| arreglo[i] == '	' || arreglo[i] == '\n') //Después de estos valores puede iniciar un identificador
+			band = 1;
+		else band = 0;
+	}
 }
