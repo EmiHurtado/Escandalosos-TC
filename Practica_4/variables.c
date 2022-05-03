@@ -60,13 +60,13 @@ Elem validar(char *arregloCopy, char *tipo, int pos, int longitud){
         identificador[1] = arregloCopy[pos+1];
         state = 1;
         i = pos + 2;
-    } else if(auxC >= 97 && auxC <= 122){
+    } /*else if(auxC >= 97 && auxC <= 122){
         printf("a");
-        *(identificador) = *(arregloCopy+(pos+1)); /////////////////////// Error aquí
+        identificador[0] = arregloCopy[pos+1]; /////////////////////// Error aquí
         printf("%s ",identificador);
         state = 1;
         i = pos + 1;
-    } else state = 0;
+    } */else state = 0;
     /*
         Significado de valores de idState:
             idState == 0 -> Error

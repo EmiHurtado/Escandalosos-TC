@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 	char *arreglo;
 	int *numC;
 	int alt, i, k;
-	list *lista;
+	//list *lista;
 	float tamor, tamcom;
 	
 	//******************************************************************	
@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
 	
 	// Se crea el arreglo dinámico
 	arreglo = malloc(sizeof(char)*sb.st_size); 
-	
+	/*
 	// Inicializa memoria lista
 	lista = (list *)malloc(sizeof(list));
 	
@@ -101,7 +101,8 @@ int main(int argc, char *argv[]) {
 	lista -> inicio = NULL;
 	lista -> fin = NULL;
 	lista -> tam = 0;
-	
+	*/
+
 	entradaDatos(nombreArchivo, arreglo, sb);
 	
 	analisisLexico(arreglo, sb);
@@ -219,6 +220,31 @@ void analisisLexico(char *arreglo, struct stat sb){
 			frecuencias[18]++;
 		else if(arreglo[i] == '=')
 			frecuencias[19]++;
+		// Puntuadores
+		else if(arreglo[i] == ',')
+			frecuencias[22]++;
+		else if(arreglo[i] == ';')
+			frecuencias[23]++;
+		else if(arreglo[i] == ':')
+			frecuencias[24]++;
+		else if(arreglo[i] == '.' && arreglo[i+1] == '.'  && arreglo[i+2] == '.')
+			frecuencias[25]++;
+		else if(arreglo[i] == '#')
+			frecuencias[26]++;
+		else if(arreglo[i] == '^')
+			frecuencias[27]++;
+		else if(arreglo[i] == '&')
+			frecuencias[28]++;
+		else if(arreglo[i] == '|')
+			frecuencias[29]++;
+		else if(arreglo[i] == '~')
+			frecuencias[30]++;
+		else if(arreglo[i] == '"')
+			frecuencias[31]++;
+		else if(arreglo[i] == '?')
+			frecuencias[32]++;
+		else if(arreglo[i] == '.')
+			frecuencias[31]++;
 	}
 	printf("\nFrecuencia de cada caracter. \n\n");
 	printf("Caracteres. \n");
@@ -246,6 +272,18 @@ void analisisLexico(char *arreglo, struct stat sb){
 	printf("El operador = se repite %i veces \n", frecuencias[19]);
 	printf("El operador <= se repite %i veces \n", frecuencias[20]);
 	printf("El operador >= se repite %i veces \n", frecuencias[21]);
+	printf("\nPuntuadores. \n");
+	printf("El puntuador , se repite %i veces \n", frecuencias[22]);
+	printf("El puntuador ; se repite %i veces \n", frecuencias[23]);
+	printf("El puntuador : se repite %i veces \n", frecuencias[24]);
+	printf("El puntuador ... se repite %i veces \n", frecuencias[25]);
+	printf("El puntuador # se repite %i veces \n", frecuencias[26]);
+	printf("El puntuador ^ se repite %i veces \n", frecuencias[27]);
+	printf("El puntuador & se repite %i veces \n", frecuencias[28]+frecuencias[8]);
+	printf("El puntuador | se repite %i veces \n", frecuencias[29]+frecuencias[9]);
+	printf("El puntuador ~ se repite %i veces \n", frecuencias[30]);
+	printf("El puntuador de las comillas se repite %i veces \n", frecuencias[31]);
+	printf("El puntuador ? se repite %i veces \n", frecuencias[32]);
 	printf("\n\n\nFrecuencia de cada par. \n\n");
 	printf("El par de caracteres () aparece %i\n", frecuencias[0] < frecuencias[1] ? frecuencias[0] : frecuencias[1]);
 	printf("El par de caracteres {} aparece %i\n", frecuencias[2] < frecuencias[3] ? frecuencias[2] : frecuencias[3]);
