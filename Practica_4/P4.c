@@ -1,14 +1,14 @@
 /*
-NOMBRE DE PROGRAMA: AnÃ¡lisis lÃ©xico
-DESCRIPCIÃ“N: Partiendo de cualquier tipo de archivo, se lee de forma binaria y se guarda cada byte
-en un arreglo del tamaÃ±o del archivo. Posteriormente, se hace un anÃ¡lisis del arreglo, para obtener
-una lista ordenada. De esta forma, se consigue la frecuencia de cada byte y se presenta sÃ³lo la 
-informaciÃ³n de los carÃ¡cteres necesarios.
+NOMBRE DE PROGRAMA: Análisis léxico
+DESCRIPCIÓN: Partiendo de cualquier tipo de archivo, se lee de forma binaria y se guarda cada byte
+en un arreglo del tamaño del archivo. Posteriormente, se hace un análisis del arreglo, para obtener
+una lista ordenada. De esta forma, se consigue la frecuencia de cada byte y se presenta sólo la 
+información de los carácteres necesarios.
 FECHA: abril 2022
-VERSIÃ“N: 2.0
+VERSIÓN: 2.0
 AUTOR(ES): 
-    Espinoza LeÃ³n Jaqueline Viridiana
-	GarcÃ­a ZacarÃ­as Angel Emmanuel
+    Espinoza León Jaqueline Viridiana
+	García Zacarías Angel Emmanuel
     Hurtado Morales Emiliano
 */
 
@@ -32,7 +32,7 @@ AUTOR(ES):
 //*******************************************************************************
 
 //*****************************************************************
-//DECLARACIÃ“N DE FUNCIONES
+//DECLARACIÓN DE FUNCIONES
 //*****************************************************************
 
 void entradaDatos(char*, char*, struct stat);
@@ -45,9 +45,9 @@ void contarIden(char*, char*, struct stat, int);
 //PROGRAMA PRINCIPAL 
 //*****************************************************************
 
-/*Descripcion de la funciÃ³n:
+/*Descripcion de la función:
 Funcion main, se ingresa el archivo a analizar y realiza todas las llamadas a funciones que permiten 
-su anÃ¡lisis lÃ©xico. 
+su análisis léxico. 
 Input: Archivo de entrada.
 Output: Ninguno.
 */
@@ -62,11 +62,6 @@ int main(int argc, char *argv[]) {
 	char *nombreArchivo;
 	char *arreglo;
 	int *numC;
-<<<<<<< HEAD
-	int alt, i, k;
-	//list *lista;
-	float tamor, tamcom;
-=======
 	int alt;
 	int i;
 	int k;
@@ -74,13 +69,12 @@ int main(int argc, char *argv[]) {
 	float tamcom;
 
 	nombreArchivo = argv[1];
->>>>>>> b27b158c3e042d5103ceddd60fd09d184c807c66
 	
 	//******************************************************************	
 	//Algoritmo
 	//******************************************************************	
 	
-	// Checa el tamaÃ±o del archivo y manda un error si no logra realizarlo
+	// Checa el tamaño del archivo y manda un error si no logra realizarlo
 	struct stat sb;
 	if (stat(nombreArchivo, &sb) == -1){
 	    perror("stat");
@@ -88,27 +82,15 @@ int main(int argc, char *argv[]) {
 	}
 	tamor = sb.st_size;
 	
-	// Se crea el arreglo dinÃ¡mico
+	// Se crea el arreglo dinámico
 	arreglo = malloc(sizeof(char)*sb.st_size); 
-<<<<<<< HEAD
-	/*
-	// Inicializa memoria lista
-	lista = (list *)malloc(sizeof(list));
 	
-	// Inicializa estructura
-	lista -> inicio = NULL;
-	lista -> fin = NULL;
-	lista -> tam = 0;
-	*/
-
-=======
-	
->>>>>>> b27b158c3e042d5103ceddd60fd09d184c807c66
 	entradaDatos(nombreArchivo, arreglo, sb);
 	
 	analisisLexico(arreglo, sb);
 
 	printf("\n\n\n");
+	printf("   Identificadores\n\n");
 
 	encontrarTipo(arreglo,sb);	
 	
@@ -116,17 +98,17 @@ int main(int argc, char *argv[]) {
 }
 
 //************************************************************************
-//DEFINICIÃ“N DE FUNCIONES 
+//DEFINICIÓN DE FUNCIONES 
 //************************************************************************
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-/*DescripciÃ³n de funciÃ³n:
-Funcion entradaDatos, permite la inserciÃ³n de cada byte del archivo en el arreglo previamente creado.
-Input: Puntero al archivo, puntero al arreglo y struct stat sb, que habilita saber de que tamaÃ±o es 
+/*Descripción de función:
+Funcion entradaDatos, permite la inserción de cada byte del archivo en el arreglo previamente creado.
+Input: Puntero al archivo, puntero al arreglo y struct stat sb, que habilita saber de que tamaño es 
 el archivo.
 Output: Arreglo llenado completamente.
-Observaciones: La inserciÃ³n es muy rÃ¡pida y no conlleva
+Observaciones: La inserción es muy rápida y no conlleva
 mucho tiempo de procesamiento.
 */
 
@@ -141,12 +123,12 @@ void entradaDatos(char *nombreArchivo, char *arreglo, struct stat sb){
 	archivo = fopen(nombreArchivo, "rb"); // Abrir en modo read binario
 	// Si es NULL, entonces no existe, o no se pudo abrir
 	if (!archivo) {
-	    printf("Â¡No se pudo abrir el archivo %s!", nombreArchivo);
+	    printf("¡No se pudo abrir el archivo %s!", nombreArchivo);
 	}
 	  
 	// Mientras no alcancemos el EndOfLine del archivo...
 	while (i<sb.st_size) {
-	    // Leer dentro del bÃºfer; fread regresa el nÃºmero de bytes leÃ­dos
+	    // Leer dentro del búfer; fread regresa el número de bytes leídos
 	    bytesLeidos = fread(bufer, sizeof(char), sizeof(bufer), archivo);
 	    arreglo[i] = bufer[0];
 	    i++;
@@ -158,12 +140,12 @@ void entradaDatos(char *nombreArchivo, char *arreglo, struct stat sb){
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-/*DescripciÃ³n de funciÃ³n:
-Funcion creacionLista, se realiza todo el anÃ¡lisis necesario para poder crear una lista ordenada, 
+/*Descripción de función:
+Funcion creacionLista, se realiza todo el análisis necesario para poder crear una lista ordenada, 
 al observar que no se repitan caracteres dentro de ella y que se sepa cuantas veces aparece cada 
 byte en el archivo.
 Input: Puntero al struct lista, puntero al arreglo y struct stat sb, que habilita saber de que 
-tamaÃ±o es el archivo.
+tamaño es el archivo.
 Output: Lista creada y ordenada.
 */
 
@@ -172,11 +154,11 @@ void analisisLexico(char *arreglo, struct stat sb){
 	int frecuencias[TAM];
 	int i;
 	
-	//EstadarizaciÃ³n de las frecuencias
+	//Estadarización de las frecuencias
 	for(i = 0 ; i < TAM ; i++)
 		frecuencias[i] = 0;
 	
-	//AnÃ¡lisis
+	//Análisis
 	for(i = 0 ; i < sb.st_size ; i++)
 	{
 		if(arreglo[i] == '(')
@@ -191,7 +173,7 @@ void analisisLexico(char *arreglo, struct stat sb){
 			frecuencias[4]++;
 		else if(arreglo[i] == '}')
 			frecuencias[5]++;
-		// Agregados de operadores aritmÃ©ticos
+		// Agregados de operadores aritméticos
 		else if(arreglo[i] == '<' && arreglo[i+1] == '=')
 			frecuencias[20]++;
 		else if(arreglo[i] == '>' && arreglo[i+1] == '=')
@@ -201,14 +183,14 @@ void analisisLexico(char *arreglo, struct stat sb){
 			frecuencias[6]++;
 		else if(arreglo[i] == '>')
 			frecuencias[7]++;
-		// Operadores lÃ³gicos: &&, ||, ! (3)
+		// Operadores lógicos: &&, ||, ! (3)
 		else if(arreglo[i] == '&' && arreglo[i+1] == '&')
 			frecuencias[8]++;
 		else if(arreglo[i] == '|' && arreglo[i+1] == '|')
 			frecuencias[9]++;
 		else if(arreglo[i] == '!')
 			frecuencias[10]++;
-		// Operadores aritmÃ©ticos: (11)
+		// Operadores aritméticos: (11)
 		else if(arreglo[i] == '+' && arreglo[i+1] == '+')
 			frecuencias[11]++;
 		else if(arreglo[i] == '+')
@@ -297,8 +279,6 @@ void analisisLexico(char *arreglo, struct stat sb){
 	printf("El par de caracteres [] aparece %i\n", frecuencias[4] < frecuencias[5] ? frecuencias[4] : frecuencias[5]);
 	printf("El par de caracteres <> aparece %i\n", frecuencias[6] < frecuencias[7] ? frecuencias[6] : frecuencias[7]);
 }
-<<<<<<< HEAD
-=======
 
 void contarIden(char *arreglo, char *identificador, struct stat sb, int pos){
 	// variables
@@ -317,13 +297,13 @@ void contarIden(char *arreglo, char *identificador, struct stat sb, int pos){
 		        cont++;
 		    else lon = 0; //reseteamos la longitud de la palabra
 		} else{
-		    if(identificador[lon] == arreglo[i]){ // Si son iguales, su tamaÃ±o coincide
+		    if(identificador[lon] == arreglo[i]){ // Si son iguales, su tamaño coincide
 		        lon++;
 		    } else lon = 0;
 		}
 	}
-
-	printf("%s se repite %d veces\n",identificador,cont);
+	
+	printf("   %s se repite %d veces\n",identificador,cont);
 }
 
 int validar(char *arreglo, struct stat sb, int pos){
@@ -339,7 +319,7 @@ int validar(char *arreglo, struct stat sb, int pos){
 		if(arreglo[i] >= 97 && arreglo[i] <= 122 && identificador[0] == '\0'){	 //Inicia con minuscula
 			identificador[0] = arreglo[i];
 			size++;
-		} else if(arreglo[i] == '_' && (arreglo[i+1] >= 97 && arreglo[i+1] <= 122) && identificador[0] == '\0'){ // Inicia con '_' y deepuÃ©s una minuscula
+		} else if(arreglo[i] == '_' && (arreglo[i+1] >= 97 && arreglo[i+1] <= 122) && identificador[0] == '\0'){ // Inicia con '_' y deepués una minuscula
 			identificador[0] = arreglo[i];
 			size++;
 		} else if(identificador[0] != '\0' && ((arreglo[i] >= 48 && arreglo[i] <= 57) || (arreglo[i] >= 65 && arreglo[i] <= 90) || (arreglo[i] >= 97 && arreglo[i] <= 122) || arreglo[i] == '_')){
@@ -347,7 +327,7 @@ int validar(char *arreglo, struct stat sb, int pos){
 			size++;
 		}else if(arreglo[i] == '(' ||arreglo[i] == ')' || arreglo[i] == ']' ||arreglo[i] == ',' ){ // Estos valores resetean todo
 			return pos;
-		} else if(identificador[0] != '\0' && (arreglo[i] == ' ' || arreglo[i] == '	' || arreglo[i] == '\n' || arreglo[i] == ';'|| arreglo[i] == ',' || arreglo[i] == '[' )){ //Posible valores que acompaÃ±an una variable
+		} else if(identificador[0] != '\0' && (arreglo[i] == ' ' || arreglo[i] == '	' || arreglo[i] == '\n' || arreglo[i] == ';'|| arreglo[i] == ',' || arreglo[i] == '[' )){ //Posible valores que acompañan una variable
 			identificador[size] = '\0';
 			contarIden(arreglo, identificador, sb, i); // Se cuentan identificadores
 			return i;
@@ -375,7 +355,7 @@ void encontrarTipo(char *arreglo, struct stat sb){
 	bandTip = 0;
 	queue = nueva();
 
-	//AnÃ¡lisis
+	//Análisis
 	for(i = 0 ; i < sb.st_size ; i++){
 
 		if(band == 1 || !esnueva(queue)){ //Revisamos que band == 1 y que la cola no este vacia
@@ -396,7 +376,7 @@ void encontrarTipo(char *arreglo, struct stat sb){
 					}
 
 					if(bandTip == 1){
-						i = validar(arreglo,sb,i+1); // Se retorna la posiciÃ³n final
+						i = validar(arreglo,sb,i+1); // Se retorna la posición final
 						band = 0; // Se resetean banderas
 						bandTip = 0;
 						while(!esnueva(queue)) // Se elimina la queue
@@ -409,9 +389,8 @@ void encontrarTipo(char *arreglo, struct stat sb){
 			}
 		}
 
-		if(arreglo[i] == ' '|| arreglo[i] == '	' || arreglo[i] == '\n') //DespuÃ©s de estos valores puede iniciar un identificador
+		if(arreglo[i] == ' '|| arreglo[i] == '	' || arreglo[i] == '\n') //Después de estos valores puede iniciar un identificador
 			band = 1;
 		else band = 0;
 	}
 }
->>>>>>> b27b158c3e042d5103ceddd60fd09d184c807c66
