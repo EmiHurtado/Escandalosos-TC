@@ -4,8 +4,8 @@ DESCRIPCIÓN: Partiendo de cualquier tipo de archivo, se lee de forma binaria y 
 en un arreglo del tamaño del archivo. Posteriormente, se hace un análisis del arreglo, para obtener
 una lista ordenada. De esta forma, se consigue la frecuencia de cada byte y se presenta sólo la 
 información de los carácteres necesarios.
-FECHA: abril 2022
-VERSIÓN: 2.0
+FECHA: mayo 2022
+VERSIÓN: 4.0
 AUTOR(ES): 
     Espinoza León Jaqueline Viridiana
 	García Zacarías Angel Emmanuel
